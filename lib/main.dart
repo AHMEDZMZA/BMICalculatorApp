@@ -1,5 +1,5 @@
 import 'package:bmicalculator/results_screen.dart';
-import 'package:bmicalculator/sliders_screen.dart';
+import 'package:bmicalculator/sliders_screen_convert_to_circle.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'custom_button.dart';
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       //home: BmiCalculator(),
-      home: SlidersScreen(),
+      home: SlidersScreenConvertToCircle(),
     );
   }
 }

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class SlidersScreen extends StatefulWidget {
-  const SlidersScreen({super.key});
+class SlidersScreenConvertToCircle extends StatefulWidget {
+  const SlidersScreenConvertToCircle({super.key});
 
   @override
-  State<SlidersScreen> createState() => _SlidersState();
+  State<SlidersScreenConvertToCircle> createState() => _SlidersState();
 }
 
-class _SlidersState extends State<SlidersScreen> {
+class _SlidersState extends State<SlidersScreenConvertToCircle> {
   double radius = 0;
 
   @override
