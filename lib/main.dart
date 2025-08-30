@@ -1,4 +1,10 @@
+import 'package:bmicalculator/results_screen.dart';
+import 'package:bmicalculator/sliders_screen.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'custom_button.dart';
+import 'custom_first_container.dart';
+import 'custom_third_container.dart';
 
 void main() {
   runApp(MyApp());
@@ -11,13 +17,28 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: BmiCalculator(),
+      //home: BmiCalculator(),
+      home: SlidersScreen(),
     );
   }
 }
 
-class BmiCalculator extends StatelessWidget {
+class BmiCalculator extends StatefulWidget {
   const BmiCalculator({super.key});
+
+  @override
+  State<BmiCalculator> createState() => _BmiCalculatorState();
+}
+
+class _BmiCalculatorState extends State<BmiCalculator> {
+  double height = 100.0;
+  int weight = 20;
+  int age = 5;
+  bool colorMale = false;
+  bool colorFemale = false;
+  double bmi = 0;
+  String result = '';
+  String details = '';
 
   @override
   Widget build(BuildContext context) {
@@ -30,59 +51,39 @@ class BmiCalculator extends StatelessWidget {
       ),
       body: Column(
         children: [
+          //---------------------------- * First Container * -------------------
           Expanded(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Expanded(
-                  child: Container(
-                    // width: 190,
-                    // height: 190,
-                    margin: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: Color(0xFF1D1E33),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.male, size: 100, color: Colors.white),
-                        SizedBox(height: 10),
-                        Text(
-                          'Male',
-                          style: TextStyle(fontSize: 20, color: Colors.white),
-                        ),
-                      ],
-                    ),
-                  ),
+                CustomFirstContainer(
+                  icon: Icons.male,
+                  text: 'Male',
+                  color: colorMale ? Colors.blue : Color(0xFF1D1E33),
+                  onTap: () {
+                    setState(() {
+                      colorMale = !colorMale;
+                      colorFemale = false;
+                    });
+                  },
                 ),
-                SizedBox(width: 10),
-                Expanded(
-                  child: Container(
-                    // width: 190,
-                    // height: 190,
-                    margin: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: Color(0xFF1D1E33),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.female, size: 100, color: Colors.white),
-                        SizedBox(height: 10),
-                        Text(
-                          'Female',
-                          style: TextStyle(fontSize: 20, color: Colors.white),
-                        ),
-                      ],
-                    ),
-                  ),
+                CustomFirstContainer(
+                  icon: Icons.female,
+                  text: 'Female',
+                  color: colorFemale ? Colors.pink : Color(0xFF1D1E33),
+                  onTap: () {
+                    setState(() {
+                      colorFemale = !colorFemale;
+                      colorMale = false;
+                    });
+                  },
                 ),
               ],
             ),
           ),
+          //---------------------------- * End Container * ---------------------
 
+          //---------------------------- * Second Container * ---------------------
           Expanded(
             child: Container(
               margin: EdgeInsets.all(10),
@@ -102,7 +103,7 @@ class BmiCalculator extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        '177',
+                        height.toStringAsFixed(1),
                         style: TextStyle(fontSize: 50, color: Colors.white),
                       ),
                       SizedBox(width: 10),
@@ -115,143 +116,120 @@ class BmiCalculator extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Slider(value: 177, max: 200, min: 0, onChanged: (value) {}),
+                  Slider(
+                    value: height,
+                    max: 250,
+                    min: 100,
+                    onChanged: (double value) {
+                      setState(() {
+                        height = value;
+                      });
+                    },
+                  ),
                 ],
               ),
             ),
           ),
+          //---------------------------- * End Container * ---------------------
 
+          //---------------------------- * Third Container * ---------------------
           Expanded(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Expanded(
-                  child: Container(
-                    // width: 170,
-                    // height: 200,
-                    margin: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: Color(0xFF1D1E33),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'weight',
-                          style: TextStyle(fontSize: 20, color: Colors.white),
-                        ),
-                        SizedBox(height: 20),
-                        Text(
-                          '70',
-                          style: TextStyle(fontSize: 20, color: Colors.white),
-                        ),
-                        SizedBox(height: 20),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Color(0xFF4C4F5E),
-                                borderRadius: BorderRadius.circular(40),
-                              ),
-                              child: Icon(
-                                Icons.add,
-                                size: 50,
-                                color: Colors.white,
-                              ),
-                            ),
-                            SizedBox(width: 30),
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Color(0xFF4C4F5E),
-                                borderRadius: BorderRadius.circular(40),
-                              ),
-                              child: Icon(
-                                Icons.remove,
-                                size: 50,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
+                CustomThirdContainer(
+                  title: 'Weight',
+                  number: weight,
+                  onTap1: () {
+                    setState(() {
+                      if (weight < 300) {
+                        weight++;
+                      }
+                    });
+                  },
+                  onTap2: () {
+                    setState(() {
+                      if (weight > 20) {
+                        weight--;
+                      }
+                    });
+                  },
                 ),
-                SizedBox(width: 20),
-                Expanded(
-                  child: Container(
-                    // width: 170,
-                    // height: 200,
-                    margin: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: Color(0xFF1D1E33),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Age',
-                          style: TextStyle(fontSize: 20, color: Colors.white),
-                        ),
-                        SizedBox(height: 20),
-                        Text(
-                          '20',
-                          style: TextStyle(fontSize: 20, color: Colors.white),
-                        ),
-                        SizedBox(height: 20),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Color(0xFF4C4F5E),
-                                borderRadius: BorderRadius.circular(40),
-                              ),
-                              child: Icon(
-                                Icons.add,
-                                size: 50,
-                                color: Colors.white,
-                              ),
-                            ),
-                            SizedBox(width: 30),
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Color(0xFF4C4F5E),
-                                borderRadius: BorderRadius.circular(40),
-                              ),
-                              child: Icon(
-                                Icons.remove,
-                                size: 50,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
+                SizedBox(width: 10),
+                CustomThirdContainer(
+                  title: 'Age',
+                  number: age,
+                  onTap1: () {
+                    setState(() {
+                      if (age < 120) {
+                        age++;
+                      }
+                    });
+                  },
+                  onTap2: () {
+                    setState(() {
+                      if (age > 5) {
+                        age--;
+                      }
+                    });
+                  },
                 ),
               ],
             ),
           ),
-          Container(
-            width: double.infinity,
-            height: 60,
-            margin: EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: Color(0xFFEB1555),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Center(
-              child: Text(
-                'Calculate',
-                style: TextStyle(fontSize: 20, color: Colors.white),
-              ),
-            ),
+          //---------------------------- * End Container * ---------------------
+
+          //---------------------------- * Button * ----------------------------
+          CustomButton(
+            text: 'Calculate',
+            onTap: () {
+              if (colorMale || colorFemale) {
+                bmi = weight / ((height / 100) * (height / 100));
+                if (bmi < 18.5) {
+                  result = 'Underweight';
+                  details =
+                      'You have a lower weight than normal.\nTry to gain some weight by exercising more.';
+                } else if (bmi >= 18.5 && bmi < 24.9) {
+                  result = 'Normal';
+                  details = 'You have a normal weight.\nGood job!';
+                } else if (bmi >= 25 && bmi < 29.9) {
+                  result = 'Overweight';
+                  details =
+                      'You have a higher weight than normal.\nTry to lose some weight by exercising more.';
+                } else if (bmi >= 30 && bmi < 39.9) {
+                  result = 'Obese';
+                  details =
+                      'You have a higher weight than normal.\nTry to lose some weight by exercising more.';
+                } else {
+                  result = 'Obese';
+                  details =
+                      'You have a higher weight than normal.\nTry to lose some weight by exercising more.';
+                }
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) {
+                      return ResultsScreen(
+                        bmi: bmi,
+                        result: result,
+                        details: details,
+                      );
+                    },
+                  ),
+                );
+              } else {
+                // ScaffoldMessenger.of(context).showSnackBar(
+                //   SnackBar(
+                //     content: Text('Please select gender'),
+                //   ),
+                // );
+                if (kDebugMode) {
+                  print('Please select gender');
+                }
+              }
+            },
           ),
+          //---------------------------- * End Button * ------------------------
         ],
       ),
     );
