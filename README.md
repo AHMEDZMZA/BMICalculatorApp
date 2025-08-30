@@ -1,16 +1,21 @@
-# bmicalculator
+# 📱 BMI Calculator App
 
-A new Flutter project.
+---
 
-## Getting Started
+### 🟢 Task Data 2025-08-25 (UI Only)
+---
 
-This project is a starting point for a Flutter application.
+<img width="1919" height="1079" alt="Screenshot 2025-08-23 014343" src="https://github.com/user-attachments/assets/ee4af846-7c98-4a0e-b3b0-9428b8b526a7" />
 
-A few resources to get you started if this is your first Flutter project:
+---
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### 🟢 Task Data 2025-08-27 -
+###  1- Complete App & Run
+https://github.com/user-attachments/assets/c56a43d1-e7c0-454b-8f2a-32172ca38419
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+---
+
+### 🟢 Task Data 2025-08-27 -
+### 2- Convert the square to a circle, the Slider
+https://github.com/user-attachments/assets/fc8a1e6a-5856-43a1-9630-a2a437edc0ae
+
